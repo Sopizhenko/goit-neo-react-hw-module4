@@ -1,0 +1,10 @@
+.image {
+    max-height: 80vh;
+}
+
+.info {
+    width: 100%;
+    justify-content: space-between;
+    background: #ffffff;
+    text-align: center;
+}

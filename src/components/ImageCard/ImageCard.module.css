@@ -1,0 +1,21 @@
+.imageCard {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    border: 1px solid #e0e0e0;
+}
+
+.imageCardImage {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.imageCardImage:hover {
+  transform: scale(1.1);
+}

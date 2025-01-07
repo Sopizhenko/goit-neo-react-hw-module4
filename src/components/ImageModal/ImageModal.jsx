@@ -23,21 +23,21 @@ const customStyles = {
 
 const ImageModal = ({ image, onClose, isOpen }) => {
   return (
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={onClose}
-        style={customStyles}
-      >
-        <img src={image.urls.regular} alt={image.alt_description} className={Styles.image}/>
-        <div className={Styles.info}>
-          <p className={Styles.author}>
-            <b>Author: </b>
-            <span>
-              {image.user.last_name} {image.user.first_name}
-            </span>
-          </p>
-        </div>
-      </Modal>
+    <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles}>
+      <img
+        src={image.urls.regular}
+        alt={image.alt_description}
+        className={Styles.image}
+      />
+      <div className={Styles.info}>
+        <p className={Styles.author}>
+          <b>Author: </b>
+          <span>
+            {image.user.last_name} {image.user.first_name}
+          </span>
+        </p>
+      </div>
+    </Modal>
   );
 };
 

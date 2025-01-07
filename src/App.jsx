@@ -5,17 +5,20 @@ import Loader from "./components/Loader/Loader";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Modal from "react-modal";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 function App() {
   const [images, setImages] = useState([]);
+  const [total, setTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const searchQueryNormalized = searchQuery.trim();
@@ -27,9 +30,13 @@ function App() {
       setLoading(true);
       try {
         const data = await getImages(searchQueryNormalized, page);
-        setImages((prevImages) => [...prevImages, ...data.results]);
-      } catch (error) {
-        setError("Something went wrong. Please try again later.");
+
+        if (data !== undefined) {
+          setImages((prevImages) => [...prevImages, ...data.results]);
+          setTotal(data.total);
+        }
+      } catch {
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -42,6 +49,10 @@ function App() {
     setPage(1);
     setImages([]);
     setSearchQuery(searchString);
+  };
+
+  const loadMore = () => {
+    setPage(page + 1);
   };
 
   const resetSearchQuery = () => {
@@ -58,10 +69,13 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleFormSubmit} onChange={resetSearchQuery} />
-      {loading && <Loader />}
-      {error && <p>{error}</p>}
+      {error && <ErrorMessage />}
       {images.length > 0 && (
         <ImageGallery images={images} openModal={openModal} />
+      )}
+      {loading && <Loader />}
+      {images.length > 0 && images.length < total && !loading && (
+        <LoadMoreBtn onClick={loadMore} />
       )}
       {selectedImage && showModal && (
         <ImageModal

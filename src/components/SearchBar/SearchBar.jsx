@@ -35,10 +35,10 @@ const SearchBar = ({ onSubmit, onChange }) => {
           onChange={handleChange}
         />
         <button type="submit" className={Styles.searchButton}>
-          <FaSearch className={Styles.searchIcon}/>
+          <FaSearch className={Styles.searchIcon} />
         </button>
       </form>
-      <Toaster position="top-right"/>
+      <Toaster position="top-right" />
     </header>
   );
 };
